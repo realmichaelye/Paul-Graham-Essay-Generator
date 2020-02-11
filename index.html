@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <!-- Using Static HTML Site, there's no backend to generate the essays due to high server costs of running GPT2 -->
 <!-- PG Essays are Pre-Generated. See github repo for code -->
-<html>
+<html style="height:100%">
     <head>
         <meta charset="UTF-8">
         <title>Paul Graham AI Essay Generator</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
-    <body>
-        <div style = "width: 100px; float: left">
+    <body style="height: 100%">
+        <div style = "width: 100px; min-height:100%; float: left">
             <a href="http://www.paulgraham.com/" target="_blank">
                 <img src="./img/sidebar.png" height="400"/>
             </a>
         </div>
-        <div>
+        <div style = "margin-left: 100px">
             <img src="./img/header.gif">
-            <div id="essay"></div>
+            <div id="essay">Generating Essay...</div>
         </div>
         <hr/>
         <p>Made by <a href="https://www.linkedin.com/in/realmichaelye/">Michael Ye</a>, a 16-year-old entrepreneur, machine learning/web/software developer, & hacker.</p>   
+        <br>
     </body>
     <script>
-
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", "./flask/generated.txt", false);
-        rawFile.onreadystatechange = function ()
-        {
-            if(rawFile.readyState === 4)
+        async function main() {
+            await new Promise(r => setTimeout(r, 4000));
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", "./flask/generated.txt", false);
+            rawFile.onreadystatechange = function ()
             {
-                if(rawFile.status === 200 || rawFile.status == 0)
+                if(rawFile.readyState === 4)
                 {
-                    var allText = String(rawFile.responseText)
-                    allText = allText.replace("\n", "<br/>");
-                    let essays = allText.split("SPLIT_CHARACTERS")
-                    
-                    const essay = essays[Math.floor(Math.random() * essays.length)];
-                    $('#essay').html(essay);
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = String(rawFile.responseText)
+                        allText = allText.replace("\n", "<br/>");
+                        let essays = allText.split("SPLIT_CHARACTERS")
+
+                        const essay = essays[Math.floor(Math.random() * essays.length)];
+                        $('#essay').html(essay);
+                    }
                 }
             }
+            rawFile.send(null);
+
+            function random(mn, mx) {  
+                return Math.random() * (mx - mn) + mn;  
+            }  
         }
-        rawFile.send(null);
-
-        function random(mn, mx) {  
-            return Math.random() * (mx - mn) + mn;  
-        }  
 
 
-        
+        main();
         
         
     </script>
