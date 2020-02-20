@@ -6,24 +6,32 @@
         <meta charset="UTF-8">
         <title>Paul Graham AI Essay Generator</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+        <style>
+            .container{
+                display: grid;
+                grid-template-columns: 100px auto;
+            }
+        
+        </style>
     </head>
-    <body style="height: 100%">
-        <div style = "width: 100px; min-height:100%; float: left">
+    <body class="container">
+        <div>
             <a href="http://www.paulgraham.com/" target="_blank">
                 <img src="./img/sidebar.png" height="400"/>
             </a>
         </div>
-        <div style = "margin-left: 100px">
+        <div>
             <img src="./img/header.gif">
             <div id="essay">Generating Essay...</div>
+            <hr/>
+            <p>Made by <a href="https://www.linkedin.com/in/realmichaelye/">Michael Ye</a>, a 16-year-old entrepreneur, machine learning/web/software developer, & hacker.</p>   
+            <br>
         </div>
-        <hr/>
-        <p>Made by <a href="https://www.linkedin.com/in/realmichaelye/">Michael Ye</a>, a 16-year-old entrepreneur, machine learning/web/software developer, & hacker.</p>   
-        <br>
     </body>
     <script>
         async function main() {
-            await new Promise(r => setTimeout(r, 4000));
+            await new Promise(r => setTimeout(r, 00));
             var rawFile = new XMLHttpRequest();
             rawFile.open("GET", "./flask/generated.txt", false);
             rawFile.onreadystatechange = function ()
